@@ -19,21 +19,21 @@ void defineEntradaESaida(char argv[]) {
     std::string caminhoExecutavel(argv);
     std::string diretorioBase;
 
-#ifdef _WIN32
-    size_t pos = caminhoExecutavel.find_last_of("\\/");
-    diretorioBase = caminhoExecutavel.substr(0, pos);
-    diretorioBase += "\\arqvs";
-    system(("mkdir \"" + diretorioBase + "\" >nul 2>nul").c_str());
-
-    ENTRADA = diretorioBase + "\\in.txt";
-#else
-    size_t pos = caminhoExecutavel.find_last_of("/");
-    diretorioBase = caminhoExecutavel.substr(0, pos);
-    diretorioBase += "/arqvs";
-    system(("mkdir -p \"" + diretorioBase + "\"").c_str());
-
-    ENTRADA = diretorioBase + "/in.txt";
-#endif
+    if(win32) {
+        size_t pos = caminhoExecutavel.find_last_of("\\/");
+        diretorioBase = caminhoExecutavel.substr(0, pos);
+        diretorioBase += "\\arqvs";
+        system(("mkdir \"" + diretorioBase + "\" >nul 2>nul").c_str());
+    
+        ENTRADA = diretorioBase + "\\in.txt";
+    } else {
+        size_t pos = caminhoExecutavel.find_last_of("/");
+        diretorioBase = caminhoExecutavel.substr(0, pos);
+        diretorioBase += "/arqvs";
+        system(("mkdir -p \"" + diretorioBase + "\"").c_str());
+    
+        ENTRADA = diretorioBase + "/in.txt";
+    }
 }
 
 void preset(char argv[]) {
