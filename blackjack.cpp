@@ -3,6 +3,8 @@
 
 using std::cin;
 
+static bool forcado = false;
+
 void baralho::obtemBaralhoEmbaralhado()
 {
     vector<carta> baralhoProvisorio;
@@ -92,6 +94,7 @@ void jogo::processaTurno()
                 sleep(2);
             #endif
 
+            turno = !turno;
             parar.first = false; parar.second = false;
             this->jogadores.first.getCarta(this->baralhoUsado.ultimaCarta());
 
@@ -99,6 +102,14 @@ void jogo::processaTurno()
         }
 
     } else {
+
+        if(forcado) 
+        {
+            turno = !turno;
+            parar.second = true;
+            return;
+        }
+
         string comando;
         if(!jaJogado) cout << "O que deseja fazer?\nDigite draw para puxar uma carta, digite stop para parar seu turno.\n> ";
         else cout << "O que deseja fazer?\n> ";
@@ -115,7 +126,7 @@ void jogo::processaTurno()
                 #endif
                 return;
             }
-
+            turno = !turno;
             parar.first = false; parar.second = false;
             this->jogadores.second.getCarta(this->baralhoUsado.ultimaCarta());
             return;
@@ -125,7 +136,9 @@ void jogo::processaTurno()
             parar.second = true;
             return;
 
-        } else if(comando == "exit") {
+        } else if (comando == "!stop") {
+            forcado = true;
+        }else if(comando == "exit") {
             exit(0);
         }
         else {
@@ -175,6 +188,8 @@ jogo::jogo()
     mostrarSituacao();
 
     cout << "\n";
+
+    forcado = false;
 
     if(jogadores.first.c_getSoma() > 21 && jogadores.second.c_getSoma() < 21) {
         cout << "Parabens, voce venceu!\n";
