@@ -76,7 +76,7 @@ void jogo::processaTurno()
 
             cout << "Dealer deseja parar.\n";
             #ifdef _WIN32
-                Sleep(1750);
+                Sleep(1350);
             #else
                 sleep(2);
             #endif
@@ -103,7 +103,7 @@ void jogo::processaTurno()
 
     } else {
 
-        if(forcado) 
+        if(forcado || this->jogadores.second.getSoma() >= 21) 
         {
             turno = !turno;
             parar.second = true;
@@ -117,15 +117,6 @@ void jogo::processaTurno()
         getline(cin, comando);
 
         if(comando == "draw") {
-            if(this->jogadores.second.getSoma() > 21) {
-                cout << "Estourou!\n";
-                #ifdef _WIN32
-                    Sleep(1750);
-                #else
-                    sleep(2);
-                #endif
-                return;
-            }
             turno = !turno;
             parar.first = false; parar.second = false;
             this->jogadores.second.getCarta(this->baralhoUsado.ultimaCarta());
@@ -229,6 +220,5 @@ jogo::jogo()
             cout << "Voce perdeu!\n";
         }
     }
-
 
 }
