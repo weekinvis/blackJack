@@ -95,11 +95,17 @@ class jogador
         }
 
         void getCarta(carta cartaObtida) { j_cartas.push_back(cartaObtida); }
+
         string getNome() { return this->nome; }
+
         void showCartas() { for(carta it : j_cartas) { it.getInfo(); std::cout << " "; } }
+
         int getSoma() { int total = 0; for(carta it : j_cartas) { total += it.getValue(); } return total; }
+
         int c_getSoma() { int total = 0; for(carta it : j_cartas) { total += it.c_getValue(); } return total; }
+
         void fim() { j_cartas[0].setVisibilidade(true); }
+
         int getValueFirst() { return j_cartas[0].getValue(); }
 
 };
@@ -111,6 +117,7 @@ class jogo
         pair<jogador, jogador> jogadores = {jogador("Dealer"), jogador("Usuario")};
         pair<bool, bool> parar = {false, false};
         bool turno = true;
+
         void mostrarSituacao();
         void processaTurno();
     public:
