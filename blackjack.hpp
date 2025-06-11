@@ -88,10 +88,12 @@ class jogador
     private:
         string nome;
         vector<carta> j_cartas;
+        bool parar;
     public:
         jogador(string nome)
         {
             this->nome = nome;
+            this->parar = false;
         }
 
         void getCarta(carta cartaObtida) { j_cartas.push_back(cartaObtida); }
@@ -106,6 +108,10 @@ class jogador
 
         void fim() { j_cartas[0].setVisibilidade(true); }
 
+        bool getParar() { return this->parar; }
+
+        void setParar(bool parar) { this->parar = parar; }
+
         int getValueFirst() { return j_cartas[0].getValue(); }
 
 };
@@ -115,15 +121,12 @@ class jogo
     private:
         baralho baralhoUsado;               // Ja esta embaralhado
         pair<jogador, jogador> jogadores = {jogador("Dealer"), jogador("Usuario")};
-        pair<bool, bool> parar = {false, false};
         bool turno = true;
 
         void mostrarSituacao();
         void processaTurno();
     public:
         jogo();
-        
-
 };
 
 #endif
