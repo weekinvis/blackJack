@@ -81,7 +81,7 @@ void jogo::processaTurno()
                 sleep(2);
             #endif
 
-            parar.first = true;
+            jogadores.first.setParar(true);
             return;
             
         } else 
@@ -95,7 +95,7 @@ void jogo::processaTurno()
             #endif
 
             turno = !turno;
-            parar.first = false; parar.second = false;
+            jogadores.first.setParar(false); jogadores.second.setParar(false);
             this->jogadores.first.getCarta(this->baralhoUsado.ultimaCarta());
 
             return;
@@ -106,7 +106,7 @@ void jogo::processaTurno()
         if(forcado || this->jogadores.second.getSoma() >= 21) 
         {
             turno = !turno;
-            parar.second = true;
+            jogadores.second.setParar(true);
             return;
         }
 
@@ -118,13 +118,12 @@ void jogo::processaTurno()
 
         if(comando == "draw") {
             turno = !turno;
-            parar.first = false; parar.second = false;
+            jogadores.first.setParar(false); jogadores.second.setParar(false);
             this->jogadores.second.getCarta(this->baralhoUsado.ultimaCarta());
             return;
         } else if(comando == "stop") {
-
             turno = !turno;
-            parar.second = true;
+            jogadores.second.setParar(true);
             return;
 
         } else if (comando == "!stop") {
@@ -157,7 +156,7 @@ jogo::jogo()
     this->jogadores.second.getCarta(this->baralhoUsado.ultimaCarta());
     this->jogadores.second.getCarta(this->baralhoUsado.ultimaCarta());
 
-    while(!(parar.first) || !(parar.second))
+    while(!(jogadores.first.getParar()) || !(jogadores.second.getParar()))
     {
         #ifdef _WIN32
             system("cls");
