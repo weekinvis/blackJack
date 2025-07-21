@@ -5,15 +5,15 @@ using std::cout; using std::cin;
 
 int main()
 {
-    char continuar = 's';
+    char continuar;
     
-    while(continuar == 's' || continuar == 'S') {
+    do {
         jogo novojogo;
         cout << "\nDeseja Continuar? (s ou S)\n";
         cout << "> ";
         cin >> continuar;
         cin.ignore();
-    }
+    } while(continuar == 's' || continuar == 'S');
 
     return 0;
 }
